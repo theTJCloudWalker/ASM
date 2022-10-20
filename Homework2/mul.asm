@@ -56,12 +56,12 @@ PrintEnter:
 PrintStack:
     POP DX
     ;MOV DL,AL
-    ADD DL,30H
+    ADD DL,30H ;转为对于数字的ascii
     MOV AH,2
     INT 21H
-    DEC CH
+    DEC CH ;利用ch计栈的深度
     CMP CH,0
-    JNE PrintStack
+    JNE PrintStack ;循环输出
     JMP exit
 
 H2D:
@@ -79,7 +79,7 @@ H2D:
 
 
 PrintEquation:
-    ;乘数
+    ;输出乘数
     MOV DL,BL
     ADD DL,30H
     MOV AH,2
@@ -93,7 +93,7 @@ PrintEquation:
     CALL PrintEqualSign ;等号=
     ;积
     MOV AL,BH
-    MUL BL
+    MUL BL ;结果在AX中
     MOV CH,0
     CALL H2D
 exit:
@@ -104,7 +104,7 @@ exit:
 Print9mul9Table:
 
     MOV BH,0
-    MOV CX,BX
+    MOV CX,BX;用CX计数
     MOV BH,BL
 PrintLine:
     
@@ -116,7 +116,7 @@ PrintLine:
     DEC BL
     CMP BL,0
     JE OK
-    CALL PrintEnter
+    CALL PrintEnter ;换行
     JMP Print9mul9Table
 
 

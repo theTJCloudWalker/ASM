@@ -54,12 +54,12 @@ RESET:
 CORRECTION:
     MOV DX,DS:[BX+SI] ;每次取2Byte，只用DL
     MOV AL,CH
-    MUL CL
+    MUL CL ;正确的结果
     CMP AL,DL
     JNE PRINTERROR
 BACK:
-    INC SI
-    INC CH
+    INC SI ;下一个单位
+    INC CH 
     CMP CH,10
     JE RESET
     JB CORRECTION
